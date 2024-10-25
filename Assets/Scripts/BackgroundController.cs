@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
-    [SerializeField] private GameObject camera;
+    [SerializeField] private GameObject mainCamera;
     [SerializeField] private float parallaxEffect;
 
     private float startPosition;
@@ -16,9 +16,8 @@ public class BackgroundController : MonoBehaviour
 
     private void Update()
     {
-        float distance = camera.transform.position.x * parallaxEffect;
-        float movement = camera.transform.position.x * (1 - parallaxEffect);
-
+        float distance = mainCamera.transform.position.x * parallaxEffect;
+        float movement = mainCamera.transform.position.x * (1 - parallaxEffect);
         transform.position = new Vector3(startPosition + distance, transform.position.y, transform.position.z);
 
         if (movement > startPosition + length)

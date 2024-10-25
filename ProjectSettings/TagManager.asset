@@ -15,9 +15,9 @@ TagManager:
   - Player
   - Background
   - Enemy
-  - 
-  - 
-  - 
+  - Bullet
+  - Collectible
+  - Power Up
   - 
   - 
   - 
