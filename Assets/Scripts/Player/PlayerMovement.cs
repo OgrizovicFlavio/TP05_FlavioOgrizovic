@@ -7,19 +7,27 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayerMask;
+    [SerializeField] private Canvas canvas;
 
+    private SpriteRenderer spriteRenderer;
     private Rigidbody2D playerRb2D;
     private bool isGrounded;
     private bool facingRight = true;
+    private float disableTime = 0.1f;
 
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         playerRb2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayerMask);
+        disableTime -= Time.deltaTime;
+        if (disableTime < 0f)
+        {
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayerMask);
+        }
     }
 
     public void Jump()
@@ -27,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             playerRb2D.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            isGrounded = false;
+            disableTime = 0.1f;
         }
     }
 
@@ -48,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
     {
         facingRight = !facingRight;
         transform.Rotate(0f, 180f, 0f);
+        canvas.transform.Rotate(0f, 180f, 0f);
     }
 
     public bool IsGrounded()

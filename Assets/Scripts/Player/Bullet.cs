@@ -8,9 +8,12 @@ public class Bullet : MonoBehaviour
     [SerializeField] private Rigidbody2D bulletRb2D;
     [SerializeField] private LayerMask enemyLayerMask;
 
+    private float lifetime = 1f;
+
     void Start()
     {
         bulletRb2D.velocity = transform.right * speed;
+        Destroy(gameObject, lifetime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

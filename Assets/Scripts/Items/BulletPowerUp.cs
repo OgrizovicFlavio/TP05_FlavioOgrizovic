@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class Collectible : MonoBehaviour
+public class BulletPowerUp : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private GameObject pickUpEffect;
 
-    private float healthPoints = 25;
+    private float duration = 10f;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -14,15 +14,10 @@ public class Collectible : MonoBehaviour
             PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
             if (playerController != null)
             {
-                PickUp(playerController);
+                playerController.BulletPowerUp(duration);
+                Instantiate(pickUpEffect, transform.position, transform.rotation);
+                Destroy(gameObject);
             }
         }
-    }
-
-    private void PickUp(PlayerController playerController)
-    {
-        Instantiate(pickUpEffect, transform.position, transform.rotation);
-        playerController.Heal(healthPoints);
-        Destroy(gameObject);
     }
 }
