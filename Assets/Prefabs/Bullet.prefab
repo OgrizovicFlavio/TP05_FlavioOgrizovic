@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2481233337430439712}
+  - component: {fileID: 1733044220676640067}
   - component: {fileID: 9219757011323751193}
   - component: {fileID: 2130076064758539395}
   - component: {fileID: 6208775841147477796}
-  - component: {fileID: 1733044220676640067}
   m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
@@ -35,6 +35,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1733044220676640067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4289903494914830841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8893b50d19c305a4f8b353a462f55006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSO: {fileID: 11400000, guid: 5fae8acafaa3ed34291037669c7c086c, type: 2}
+  bulletRb2D: {fileID: 2130076064758539395}
 --- !u!212 &9219757011323751193
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -149,21 +163,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.078125
---- !u!114 &1733044220676640067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4289903494914830841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8893b50d19c305a4f8b353a462f55006, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  damage: 25
-  bulletRb2D: {fileID: 2130076064758539395}
-  enemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 512

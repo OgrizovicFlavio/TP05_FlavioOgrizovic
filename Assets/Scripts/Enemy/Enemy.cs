@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public enum EnemyState
@@ -13,12 +12,22 @@ public class Enemy : MonoBehaviour
 {
     public static event Action<Vector3> onEnemyDeath;
 
-    [SerializeField] private float health = 100;
-    [SerializeField] private float damage = 25;
+    [SerializeField] private EnemySO enemySO;
     [SerializeField] private Image healthBar;
     [SerializeField] private Animator enemyAnimator;
     [SerializeField] private EnemyState enemyState;
     [SerializeField] private EnemyState lastEnemyState;
+
+    private AudioManager audioManager;
+    private float health;
+    private float damage;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+        health = enemySO.maxHealth;
+        damage = enemySO.baseDamage;
+    }
 
     private void Update()
     {
@@ -40,6 +49,7 @@ public class Enemy : MonoBehaviour
                 {
                     lastEnemyState = enemyState;
                     enemyAnimator.SetInteger("State", 1);
+                    audioManager.Play("EnemyHurt");
                     Invoke(nameof(ChangeToIdle), 0.5f);
                 }
                 break;
@@ -70,6 +80,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        audioManager.Play("EnemyDie");
         onEnemyDeath?.Invoke(transform.position);
         Destroy(gameObject);
     }

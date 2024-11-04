@@ -5,7 +5,13 @@ public class BulletPowerUp : MonoBehaviour
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private GameObject pickUpEffect;
 
+    AudioManager audioManager;
     private float duration = 10f;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -14,8 +20,9 @@ public class BulletPowerUp : MonoBehaviour
             PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
             if (playerController != null)
             {
-                playerController.BulletPowerUp(duration);
                 Instantiate(pickUpEffect, transform.position, transform.rotation);
+                audioManager.Play("PowerUp");
+                playerController.BulletPowerUp(duration);
                 Destroy(gameObject);
             }
         }

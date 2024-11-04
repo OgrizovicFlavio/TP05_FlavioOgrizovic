@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1553842032435689131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1002320581528698638}
+  - component: {fileID: 3660133673470493683}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1002320581528698638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553842032435689131}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3660133673470493683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553842032435689131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bed2475fd62be4f8d28a6502e3dead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: PlayerJump
+    clip: {fileID: 8300000, guid: 79bd41ade050be244a300a6ff3e5522d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -2989563134539604078, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: PlayerShoot
+    clip: {fileID: 8300000, guid: 062df0cc757368a45922477b6d8e65d1, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -2989563134539604078, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: PlayerRun
+    clip: {fileID: 8300000, guid: 075115bcf9e8b4e4291dd41a35fbda42, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -2989563134539604078, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: PlayerHurt
+    clip: {fileID: 8300000, guid: 8f0b8c4f0b45dc54a9497e925deae8cb, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -2989563134539604078, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: PlayerDie
+    clip: {fileID: 8300000, guid: 7d7458f5ea61fde4cb5a5fb2ae90324c, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -2989563134539604078, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: PowerUp
+    clip: {fileID: 8300000, guid: d4eb3658b82d32a4281aac241f95827b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -2989563134539604078, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: Health
+    clip: {fileID: 8300000, guid: 22b57b868980c5946b53099bb8ebcf9e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -2989563134539604078, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: EnemyHurt
+    clip: {fileID: 8300000, guid: 2243477f6695087439d193cc193ab9b2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -2989563134539604078, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: EnemyDie
+    clip: {fileID: 8300000, guid: 17c3231984608a7418419e21b9b65dee, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -2989563134539604078, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: BackgroundMusic
+    clip: {fileID: 8300000, guid: 068da72d549c9af44aa7aeec19277aee, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -4163933957705336638, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}
+  - name: ButtonPress
+    clip: {fileID: 8300000, guid: b1cf8a1c2393bb94e91a29117e6a015b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: -4163933957705336638, guid: 3d53071d68dc2b549957f82c5173d8c8, type: 2}

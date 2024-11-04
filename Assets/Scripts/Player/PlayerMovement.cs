@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 5f;
-    [SerializeField] private float jumpForce = 10f;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckRadius = 0.2f;
-    [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private Canvas canvas;
 
+    public PlayerSO playerSO;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D playerRb2D;
     private bool isGrounded;
@@ -26,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
         disableTime -= Time.deltaTime;
         if (disableTime < 0f)
         {
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayerMask);
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, playerSO.groundCheckRadius, playerSO.groundLayerMask);
         }
     }
 
@@ -34,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded)
         {
-            playerRb2D.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            playerRb2D.AddForce(new Vector2(0f, playerSO.jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
             disableTime = 0.1f;
         }
@@ -42,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(float moveInput)
     {
-        playerRb2D.velocity = new Vector2(moveInput * movementSpeed, playerRb2D.velocity.y);
+        playerRb2D.velocity = new Vector2(moveInput * playerSO.movementSpeed, playerRb2D.velocity.y);
 
         if (moveInput > 0 && !facingRight)
         {

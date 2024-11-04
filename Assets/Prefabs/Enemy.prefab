@@ -49,10 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67323d6c97afc6f4295a0641220bc79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  damage: 25
+  enemySO: {fileID: 11400000, guid: 153f1f7dc04d94d4d875379e11e54e1d, type: 2}
   healthBar: {fileID: 5114229477623093811}
   enemyAnimator: {fileID: 7022780898503990086}
+  enemyState: 0
+  lastEnemyState: 0
 --- !u!212 &6287337709671437709
 SpriteRenderer:
   m_ObjectHideFlags: 0

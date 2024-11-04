@@ -2,34 +2,28 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum PlayerState
-{
-    Idle,
-    Move,
-    Jump,
-    Shoot,
-    Hurt,
-    Die
-}
-
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float health = 100;
+    [SerializeField] private PlayerSO playerSO;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private Image healthBar;
-    [SerializeField] private LayerMask enemyLayerMask;
     [SerializeField] private PlayerState playerState;
     [SerializeField] private PlayerState lastPlayerState;
 
-
+    private AudioManager audioManager;
+    private float health;
     private float horizontalInput;
     private PlayerMovement playerMovement;
     private Weapon weapon;
+    private Coroutine powerUpCoroutine;
 
     private void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         playerMovement = GetComponent<PlayerMovement>();
         weapon = GetComponent<Weapon>();
+        playerMovement.playerSO = playerSO;
+        health = playerSO.maxHealth;
     }
 
     private void Update()
@@ -46,6 +40,7 @@ public class PlayerController : MonoBehaviour
                 //START
                 if (playerState != lastPlayerState)
                 {
+                    audioManager.Stop("PlayerRun");
                     lastPlayerState = playerState;
                     playerAnimator.SetInteger("State", 0);
                 }
@@ -62,20 +57,20 @@ public class PlayerController : MonoBehaviour
                 {
                     playerState = PlayerState.Shoot;
                 }
-                    break;
+                break;
             case PlayerState.Move:
                 //START
                 if (playerState != lastPlayerState)
                 {
                     lastPlayerState = playerState;
                     playerAnimator.SetInteger("State", 1);
+                    audioManager.Play("PlayerRun");
                 }
                 //UPDATE
                 playerMovement.Move(moveInput);
-
                 if (Mathf.Abs(moveInput) < 0.01f)
                 {
-                    playerState = PlayerState.Idle;
+                    playerState = PlayerState.Idle;                   
                 }
                 else if (Input.GetButtonDown("Jump") && playerMovement.IsGrounded())
                 {
@@ -85,6 +80,11 @@ public class PlayerController : MonoBehaviour
                 {
                     playerState = PlayerState.Shoot;
                 }
+                //EXIT
+                if (playerState != PlayerState.Move)
+                {
+                    audioManager.Stop("PlayerRun");
+                }
                 break;
             case PlayerState.Jump:
                 //START
@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
                     lastPlayerState = playerState;
                     playerAnimator.SetInteger("State", 2);
                     playerMovement.Jump();
+                    audioManager.Play("PlayerJump");
                 }
                 //UPDATE
                 playerMovement.Move(moveInput);
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour
                     lastPlayerState = playerState;
                     playerAnimator.SetInteger("State", 3);
                     weapon.Shoot();
+                    audioManager.Play("PlayerShoot");
                     Invoke(nameof(ChangeToIdle), 0.5f);
                 }
                 //UPDATE
@@ -125,10 +127,12 @@ public class PlayerController : MonoBehaviour
                 {
                     lastPlayerState = playerState;
                     playerAnimator.SetInteger("State", 4);
+                    audioManager.Stop("PlayerRun");
+                    audioManager.Play("PlayerHurt");
                     Invoke(nameof(ChangeToIdle), 0.5f);
                 }
                 //UPDATE
-                playerMovement.Move(moveInput/2);
+                playerMovement.Move(moveInput / 2);
                 break;
             case PlayerState.Die:
                 //START
@@ -136,6 +140,8 @@ public class PlayerController : MonoBehaviour
                 {
                     lastPlayerState = playerState;
                     playerAnimator.SetInteger("State", 5);
+                    audioManager.Stop("PlayerRun");
+                    audioManager.Play("PlayerDie");
                 }
                 //UPDATE
                 if (Input.GetKeyDown(KeyCode.R))
@@ -158,7 +164,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (Utilites.CheckLayerInMask(enemyLayerMask, other.gameObject.layer))
+        if (Utilites.CheckLayerInMask(playerSO.enemyLayerMask, other.gameObject.layer))
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
@@ -200,7 +206,12 @@ public class PlayerController : MonoBehaviour
 
     public void BulletPowerUp(float duration)
     {
-        StartCoroutine(PickUp(duration));
+        if (powerUpCoroutine != null)
+        {
+            StopCoroutine(powerUpCoroutine);
+        }
+
+        powerUpCoroutine = StartCoroutine(PickUp(duration));
     }
 
     private IEnumerator PickUp(float duration)
@@ -218,5 +229,7 @@ public class PlayerController : MonoBehaviour
             weapon.SetBulletScaleMultiplier(1f);
             weapon.SetBulletDamageMultiplier(1f);
         }
+
+        powerUpCoroutine = null;
     }
 }

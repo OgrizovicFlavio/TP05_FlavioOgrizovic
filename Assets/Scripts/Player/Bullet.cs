@@ -2,23 +2,22 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private float damage = 25;
-    [SerializeField] private float damageMultiplier = 1f;
+    [SerializeField] private BulletSO bulletSO;
     [SerializeField] private Rigidbody2D bulletRb2D;
-    [SerializeField] private LayerMask enemyLayerMask;
 
-    private float lifetime = 1f;
+    private float damage;
+    private float damageMultiplier = 1f;
 
     void Start()
     {
-        bulletRb2D.velocity = transform.right * speed;
-        Destroy(gameObject, lifetime);
+        bulletRb2D.velocity = transform.right * bulletSO.speed;
+        Destroy(gameObject, bulletSO.lifetime);
+        damage = bulletSO.baseDamage;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Utilites.CheckLayerInMask(enemyLayerMask, other.gameObject.layer))
+        if (Utilites.CheckLayerInMask(bulletSO.enemyLayerMask, other.gameObject.layer))
         {
             Enemy enemy = other.GetComponent<Enemy>();
 
